@@ -1,0 +1,21 @@
+{
+    "name": "sodae/netrium-addons-twitter",
+    "description": "Nette addons for Twitter oAuth authentication and use Twitter API",
+    "keywords": ["twitter", "oAuth", "nette", "netrium"],
+    "authors": [
+    {
+        "name": "Martin Sadový",
+        "homepage": "http://sodae.cz"
+    }
+    ],
+    "license": ["BSD-3", "GPLv2", "GPLv3"],
+    "require": {
+        "php" : ">=5.3.1",
+        "nette/nette": ">=2.0.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "Netrium\\Addons\\Twitter": ""
+        }
+    }
+}
