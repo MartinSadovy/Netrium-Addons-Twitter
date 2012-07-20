@@ -64,6 +64,3 @@ class TwitterExtension extends Nette\Config\CompilerExtension
 		return new SessionStorage($session->getSection($name));
 	}
 }
-
-require_once __DIR__ . '/twitteroauth/OAuth.php';
-require_once __DIR__ . '/twitteroauth/twitteroauth.php';

@@ -16,6 +16,7 @@
     "autoload": {
         "psr-0": {
             "Netrium\\Addons\\Twitter": ""
-        }
+        },
+        "classmap": ["Netrium/Addons/Twitter/twitteroauth/"]
     }
 }
