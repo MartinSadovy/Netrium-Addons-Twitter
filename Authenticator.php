@@ -108,12 +108,12 @@ class Authenticator
 	{
 		$this->twitterOAuth->setOAuthToken($this->storage->getOAuthTokenKey(), $this->storage->getOAuthTokenSecret());
 
-		$varifier = $this->httpContext->request->getQuery('oauth_verifier');
-		if (!$varifier) {
+		$verifier = $this->httpContext->request->getQuery('oauth_verifier');
+		if (!$verifier) {
 			throw new AuthenticationException("Missing request parametr 'oauth_verifier'");
 		}
 
-		$accessToken = $this->twitterOAuth->getAccessToken($varifier);
+		$accessToken = $this->twitterOAuth->getAccessToken($verifier);
 		if ($this->twitterOAuth->http_code === 200) {
 			return $accessToken;
 		} else {
