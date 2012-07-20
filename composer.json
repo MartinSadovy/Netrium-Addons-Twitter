@@ -18,5 +18,6 @@
             "Netrium\\Addons\\Twitter": ""
         },
         "classmap": ["Netrium/Addons/Twitter/twitteroauth/"]
-    }
+    },
+    "target-dir": "Netrium/Addons/Twitter"
 }
