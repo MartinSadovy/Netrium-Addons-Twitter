@@ -3,19 +3,15 @@
 /**
  * This file is part of the Netrium Framework
  *
- * Copyright (c) 2012 Martin Sadovy (http://sadovy.cz)
+ * Copyright (c) 2013 Martin Sadovy (http://sadovy.cz)
  *
  * For the full copyright and license information, please view
  * the file license.txt that was distributed with this source code.
  */
 
-
-
 namespace Netrium\Addons\Twitter;
 
 use Nette;
-
-
 
 /**
  * Twitter web authenticator
@@ -24,6 +20,7 @@ use Nette;
  */
 class Authenticator
 {
+
 	/**
 	 * @var IStorage
 	 */
@@ -61,12 +58,11 @@ class Authenticator
 				if ($user = $this->twitterOAuth->get('account/verify_credentials')) {
 					$this->resetAuthorize();
 					return array(
-					    'user' => $user,
-					    'accessToken' => array(
-						'key' => $accessToken['oauth_token'],
-						'secret' => $accessToken['oauth_token_secret'],
+						'user' => $user,
+						'accessToken' => array(
+							'key' => $accessToken['oauth_token'],
+							'secret' => $accessToken['oauth_token_secret'],
 					));
-
 				} else {
 					throw new AuthenticationException("Could not authenticate you.");
 				}
@@ -129,4 +125,5 @@ class Authenticator
 		$this->twitterOAuth->cleanOAuthToken();
 		$this->storage->clean();
 	}
+
 }

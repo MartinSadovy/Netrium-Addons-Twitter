@@ -3,19 +3,15 @@
 /**
  * This file is part of the Netrium Framework
  *
- * Copyright (c) 2012 Martin Sadovy (http://sadovy.cz)
+ * Copyright (c) 2013 Martin Sadovy (http://sadovy.cz)
  *
  * For the full copyright and license information, please view
  * the file license.txt that was distributed with this source code.
  */
 
-
-
 namespace Netrium\Addons\Twitter;
 
 use Nette;
-
-
 
 /**
  * Twitter extension
@@ -24,10 +20,11 @@ use Nette;
  */
 class TwitterExtension extends Nette\Config\CompilerExtension
 {
+
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig(array(
-		    'authenticator.sessionNamespace' => 'Twitter'
+			'authenticator.sessionNamespace' => 'Twitter'
 		));
 		if (!isset($config['consumerKey']) || !isset($config['consumerSecretKey']))
 			throw new Nette\InvalidArgumentException('Twitter extension have to consumerKey and consumerSecretKey parameters');
@@ -35,10 +32,10 @@ class TwitterExtension extends Nette\Config\CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$api = $builder->addDefinition($this->prefix('api'))
-			->setClass('TwitterOAuth', array(
-			    $config['consumerKey'],
-			    $config['consumerSecretKey']
-			))->setShared(FALSE);
+				->setClass('TwitterOAuth', array(
+					$config['consumerKey'],
+					$config['consumerSecretKey']
+				))->setShared(FALSE);
 
 		if (isset($config['accessKey']) && isset($config['accessSecret'])) {
 			$api->addSetup('setOAuthToken', array(
@@ -53,14 +50,15 @@ class TwitterExtension extends Nette\Config\CompilerExtension
 
 		$builder->addDefinition($this->prefix('authenticator'))
 			->setClass('Netrium\Addons\Twitter\Authenticator', array(
-			    '@' . $this->prefix('api'),
-			    '@' . $this->prefix('authenticator.storage'),
-			    '@nette.httpContext'
-			));
+				'@' . $this->prefix('api'),
+				'@' . $this->prefix('authenticator.storage'),
+				'@nette.httpContext'
+		));
 	}
 
 	public static function createSessionStorage($session, $name)
 	{
 		return new SessionStorage($session->getSection($name));
 	}
+
 }

@@ -3,16 +3,13 @@
 /**
  * This file is part of the Netrium Framework
  *
- * Copyright (c) 2012 Martin Sadovy (http://sadovy.cz)
+ * Copyright (c) 2013 Martin Sadovy (http://sadovy.cz)
  *
  * For the full copyright and license information, please view
  * the file license.txt that was distributed with this source code.
  */
 
-
 namespace Netrium\Addons\Twitter;
-
-
 
 /**
  * Interface of storage for save information while authentization
@@ -21,6 +18,7 @@ namespace Netrium\Addons\Twitter;
  */
 interface IStorage
 {
+
 	/**
 	 * Application authorizated
 	 */
@@ -28,9 +26,9 @@ interface IStorage
 
 	public function setAuthorized();
 
-  /**
-   * oAuth Token
-   */
+	/**
+	 * oAuth Token
+	 */
 	public function getOAuthTokenKey();
 
 	public function getOAuthTokenSecret();

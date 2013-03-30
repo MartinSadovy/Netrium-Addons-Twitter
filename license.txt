@@ -17,7 +17,7 @@ remains intact.
 New BSD License
 ---------------
 
-Copyright (c) 2012 Martin Sadový (http://sadovy.cz)
+Copyright (c) 2013 Martin Sadový (http://sadovy.cz)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

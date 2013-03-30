@@ -4,10 +4,8 @@
  * Abraham Williams (abraham@abrah.am) http://abrah.am
  *
  * The first PHP Library to support OAuth for Twitter's REST API.
+ * Load OAuth lib. You can find it at http://oauth.net
  */
-
-/* Load OAuth lib. You can find it at http://oauth.net */
-
 
 /**
  * Twitter OAuth class
@@ -17,6 +15,7 @@
 class TwitterOAuth
 {
 	/* Contains the last HTTP status code returned. */
+
 	public $http_code;
 
 	/* Contains the last API call. */
@@ -52,22 +51,41 @@ class TwitterOAuth
 	/* Token variable */
 	private $token;
 
-
-
-
 	/**
 	 * Set API URLS
 	 */
-	function accessTokenURL() { return 'https://api.twitter.com/oauth/access_token'; }
-	function authenticateURL() { return 'https://api.twitter.com/oauth/authenticate'; }
-	function authorizeURL()	{ return 'https://api.twitter.com/oauth/authorize'; }
-	function requestTokenURL() { return 'https://api.twitter.com/oauth/request_token'; }
+	function accessTokenURL()
+	{
+		return 'https://api.twitter.com/oauth/access_token';
+	}
+
+	function authenticateURL()
+	{
+		return 'https://api.twitter.com/oauth/authenticate';
+	}
+
+	function authorizeURL()
+	{
+		return 'https://api.twitter.com/oauth/authorize';
+	}
+
+	function requestTokenURL()
+	{
+		return 'https://api.twitter.com/oauth/request_token';
+	}
 
 	/**
 	 * Debug helpers
 	 */
-	function lastStatusCode() { return $this->http_status; }
-	function lastAPICall() { return $this->last_api_call; }
+	function lastStatusCode()
+	{
+		return $this->http_status;
+	}
+
+	function lastAPICall()
+	{
+		return $this->last_api_call;
+	}
 
 	/**
 	 * construct TwitterOAuth object
@@ -141,7 +159,7 @@ class TwitterOAuth
 		if (empty($sign_in_with_twitter)) {
 			return $this->authorizeURL() . "?oauth_token={$token}";
 		} else {
-			 return $this->authenticateURL() . "?oauth_token={$token}";
+			return $this->authenticateURL() . "?oauth_token={$token}";
 		}
 	}
 
@@ -150,9 +168,9 @@ class TwitterOAuth
 	 * secret, to sign API calls.
 	 *
 	 * @returns array("oauth_token" => "the-access-token",
-	 *								"oauth_token_secret" => "the-access-secret",
-	 *								"user_id" => "9436992",
-	 *								"screen_name" => "abraham")
+	 * 		"oauth_token_secret" => "the-access-secret",
+	 * 		"user_id" => "9436992",
+	 * 		"screen_name" => "abraham")
 	 */
 	function getAccessToken($oauth_verifier = FALSE)
 	{
@@ -174,10 +192,10 @@ class TwitterOAuth
 	 * One time exchange of username and password for access token and secret.
 	 *
 	 * @returns array("oauth_token" => "the-access-token",
-	 *								"oauth_token_secret" => "the-access-secret",
-	 *								"user_id" => "9436992",
-	 *								"screen_name" => "abraham",
-	 *								"x_auth_expires" => "0")
+	 * 		"oauth_token_secret" => "the-access-secret",
+	 * 		"user_id" => "9436992",
+	 *		"screen_name" => "abraham",
+	 * 		"x_auth_expires" => "0")
 	 */
 	function getXAuthToken($username, $password)
 	{
@@ -238,10 +256,10 @@ class TwitterOAuth
 		$request = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, $method, $url, $parameters);
 		$request->sign_request($this->sha1_method, $this->consumer, $this->token);
 		switch ($method) {
-		case 'GET':
-			return $this->http($request->to_url(), 'GET');
-		default:
-			return $this->http($request->get_normalized_http_url(), $method, $request->to_postdata());
+			case 'GET':
+				return $this->http($request->to_url(), 'GET');
+			default:
+				return $this->http($request->get_normalized_http_url(), $method, $request->to_postdata());
 		}
 	}
 
@@ -283,7 +301,7 @@ class TwitterOAuth
 		$this->http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
 		$this->http_info = array_merge($this->http_info, curl_getinfo($ci));
 		$this->url = $url;
-		curl_close ($ci);
+		curl_close($ci);
 		return $response;
 	}
 
@@ -300,4 +318,5 @@ class TwitterOAuth
 		}
 		return strlen($header);
 	}
+
 }
