@@ -18,7 +18,7 @@ use Nette;
  *
  * @author Martin Sadovy
  */
-class TwitterExtension extends Nette\Config\CompilerExtension
+class TwitterExtension extends Nette\DI\CompilerExtension
 {
 
 	public function loadConfiguration()
