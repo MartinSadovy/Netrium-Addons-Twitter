@@ -26,8 +26,9 @@ class TwitterExtension extends Nette\Config\CompilerExtension
 		$config = $this->getConfig(array(
 			'authenticator.sessionNamespace' => 'Twitter'
 		));
-		if (!isset($config['consumerKey']) || !isset($config['consumerSecretKey']))
-			throw new Nette\InvalidArgumentException('Twitter extension have to consumerKey and consumerSecretKey parameters');
+		if (!isset($config['consumerKey']) || !isset($config['consumerSecretKey'])) {
+			throw new Nette\InvalidArgumentException("Twitter extension requries 'consumerKey' and 'consumerSecretKey' parameters.");
+		}
 
 		$builder = $this->getContainerBuilder();
 
