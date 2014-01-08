@@ -12,13 +12,18 @@
 namespace Netrium\Addons\Twitter;
 
 use Nette;
+use Nette\DI;
+
+if (!class_exists('Nette\DI\CompilerExtension')) {
+	class_alias('Nette\Config\CompilerExtension', 'Nette\DI\CompilerExtension');
+}
 
 /**
  * Twitter extension
  *
  * @author Martin Sadovy
  */
-class TwitterExtension extends Nette\Config\CompilerExtension
+class TwitterExtension extends DI\CompilerExtension
 {
 
 	public function loadConfiguration()
