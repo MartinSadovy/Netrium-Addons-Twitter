@@ -56,9 +56,7 @@ class TwitterExtension extends DI\CompilerExtension
 		$builder->addDefinition($this->prefix('authenticator'))
 			->setClass('Netrium\Addons\Twitter\Authenticator', array(
 				'@' . $this->prefix('api'),
-				'@' . $this->prefix('authenticator.storage'),
-				'@nette.httpContext'
-		));
+			));
 	}
 
 	public static function createSessionStorage($session, $name)
