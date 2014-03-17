@@ -41,7 +41,7 @@ class TwitterExtension extends DI\CompilerExtension
 				->setClass('TwitterOAuth', array(
 					$config['consumerKey'],
 					$config['consumerSecretKey']
-				))->setShared(FALSE);
+				));
 
 		if (isset($config['accessKey']) && isset($config['accessSecret'])) {
 			$api->addSetup('setOAuthToken', array(
