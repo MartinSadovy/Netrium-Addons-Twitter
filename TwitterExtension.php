@@ -47,6 +47,9 @@ class TwitterExtension extends DI\CompilerExtension
 		} else {
 			$api->setFactory('@' . $this->prefix('factory') . '::create');
 		}
+		if (Nette\Framework::VERSION_ID < 20100) {
+			$api->setShared(FALSE); // back compatibility with app build on Nette 2.0
+		}
 
 		$builder->addDefinition($this->prefix('factory'))
 			->setClass('Netrium\Addons\Twitter\ApiFactory', array(
