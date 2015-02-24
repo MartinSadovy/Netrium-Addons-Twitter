@@ -37,18 +37,22 @@ class TwitterExtension extends DI\CompilerExtension
 
 		$builder = $this->getContainerBuilder();
 
-		$api = $builder->addDefinition($this->prefix('api'))
-				->setClass('TwitterOAuth', array(
-					$config['consumerKey'],
-					$config['consumerSecretKey']
-				));
-
+		$api = $builder->addDefinition($this->prefix('api'));
+		$api->setClass('TwitterOAuth');
 		if (isset($config['accessKey']) && isset($config['accessSecret'])) {
-			$api->addSetup('setOAuthToken', array(
+			$api->setFactory('@' . $this->prefix('factory') . '::create', array(
 				$config['accessKey'],
 				$config['accessSecret']
 			));
+		} else {
+			$api->setFactory('@' . $this->prefix('factory') . '::create');
 		}
+
+		$builder->addDefinition($this->prefix('factory'))
+			->setClass('Netrium\Addons\Twitter\ApiFactory', array(
+				$config['consumerKey'],
+				$config['consumerSecretKey']
+			));
 
 		$builder->addDefinition($this->prefix('authenticator.storage'))
 			->setClass('Netrium\Addons\Twitter\SessionStorage')
