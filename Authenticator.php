@@ -12,6 +12,8 @@
 namespace Netrium\Addons\Twitter;
 
 use Nette;
+use Nette\Http\Request;
+use Nette\Http\Response;
 
 /**
  * Twitter web authenticator
@@ -32,16 +34,22 @@ class Authenticator
 	private $twitterOAuth;
 
 	/**
-	 * @var Nette\Http\Context
+	 * @var Request
 	 */
-	private $httpContext;
+	private $httpRequest;
 
-	public function __construct(\TwitterOAuth $twitterOAuth, IStorage $storage, Nette\Http\Context $httpContext)
+	/**
+	 * @var Response
+	 */
+	private $httpResponse;
+
+	public function __construct(\TwitterOAuth $twitterOAuth, IStorage $storage, Request $httpRequest, Response $httpResponse)
 	{
 		$this->storage = $storage;
 		$this->twitterOAuth = clone $twitterOAuth;
-		$this->httpContext = $httpContext;
-	}
+		$this->httpRequest = $httpRequest;
+		$this->httpResponse = $httpResponse;
+    }
 
 	/**
 	 * Try authenticate to twitter account
@@ -82,13 +90,13 @@ class Authenticator
 	{
 		$this->resetAuthorize();
 
-		$requestToken = $this->twitterOAuth->getRequestToken($this->httpContext->request->url->getAbsoluteUrl());
+		$requestToken = $this->twitterOAuth->getRequestToken($this->httpRequest->url->getAbsoluteUrl());
 		$this->storage->setOAuthTokens($requestToken['oauth_token'], $requestToken['oauth_token_secret']);
 
 		if ($this->twitterOAuth->http_code === 200) {
 			$this->storage->setAuthorized();
 			$url = $this->twitterOAuth->getAuthorizeURL($this->storage->getOAuthTokenKey());
-			$this->httpContext->response->redirect($url);
+			$this->httpResponse->redirect($url);
 			throw new Nette\Application\AbortException; // stop!
 		} else {
 			throw new AuthenticationException("Could not connect to Twitter. Refresh the page or try again later.");
@@ -104,7 +112,7 @@ class Authenticator
 	{
 		$this->twitterOAuth->setOAuthToken($this->storage->getOAuthTokenKey(), $this->storage->getOAuthTokenSecret());
 
-		$verifier = $this->httpContext->request->getQuery('oauth_verifier');
+		$verifier = $this->httpRequest->getQuery('oauth_verifier');
 		if (!$verifier) {
 			throw new AuthenticationException("Missing request parametr 'oauth_verifier'");
 		}
