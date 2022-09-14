@@ -1,3 +1,6 @@
+# Unmaintained package! 
+Use other package from https://componette.org/ 
+
 # Netrium\Addons\Twitter
 Simple Twitter addon for Nette Framework
 
